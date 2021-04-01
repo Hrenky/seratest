@@ -20,14 +20,29 @@ class ShowController
 {
     protected $APIkey = '27223bf9';
 
-    public function showsByName() {
-
-    }
-
-    public function showsByDate() {
-
-    }
-
+    /**
+     * @OA\Post (
+     *     path="/single",
+     *     summary="Single movie",
+     *     description="Getting single movie info",
+     *     @OA\RequestBody (
+     *          required=true,
+     *          description="Deliver showID",
+     *          @OA\JsonContent (
+     *              required={"username", "password"},
+     *              @OA\Property(property="showID", type="number", example="123"),
+     *          )
+     *     ),
+     *     @OA\Response (
+     *          response=200,
+     *          description="If show is found then present info about it. Otherwise it returns the info that the show doesn't exist",
+     *          @OA\JsonContent(
+     *                  @OA\Property(property="message", type="string", example="Redirecting to show")
+     *              )
+     *          )
+     *     )
+     * )
+     */
     public function getShowLocal(Request $request) {
         $showID = $request->get('showID');
 
@@ -83,6 +98,30 @@ class ShowController
         return view('single-show', ['show' => $showData]);
     }
 
+    /**
+     * @OA\Post (
+     *     path="/local",
+     *     summary="Getting list of all local shows",
+     *     description="Getting all the shows from database",
+     *     @OA\RequestBody (
+     *          required=true,
+     *          description="Deliver info about the movie that is to be fetched",
+     *          @OA\JsonContent (
+     *              required={"title", "type"},
+     *              @OA\Property(property="username", type="string", example="Blade Runner"),
+     *              @OA\Property(property="password", type="string", example="movie/show/episode")
+     *          )
+     *     ),
+     *     @OA\Response (
+     *          response=200,
+     *          description="If any movie is found, the list of them will be added. Otherwise there will be a message saying that no movie could be found",
+     *          @OA\JsonContent(
+     *                  @OA\Property(property="message", type="string", example="No movie found!")
+     *              )
+     *          )
+     *     )
+     * )
+     */
     public function getAllShowLocal(Request $request) {
         $title = $request->get('title');
         $type = $request->get('type');
@@ -104,6 +143,30 @@ class ShowController
         return view('local-shows', ['shows' => $showData]);
     }
 
+    /**
+     * @OA\Post  (
+     *     path="/online",
+     *     summary="Getting movie data online",
+     *     description="Getting the data from OMDB website",
+     *     @OA\RequestBody (
+     *          required=true,
+     *          description="Deliver info about the movie that is to be fetched",
+     *          @OA\JsonContent (
+     *              required={"title", "type"},
+     *              @OA\Property(property="username", type="string", example="Blade Runner"),
+     *              @OA\Property(property="password", type="string", example="movie/show/episode")
+     *          )
+     *     ),
+     *     @OA\Response (
+     *          response=200,
+     *          description="If movie is found, it will be delivered. Otherwise there will be a message saying that the movie couldb't be found",
+     *          @OA\JsonContent(
+     *                  @OA\Property(property="message", type="string", example="No movie found!")
+     *              )
+     *          )
+     *     )
+     * )
+     */
     public function getShowOnline(Request $request) {
         $title = urlencode($request->get('title'));
         $type = $request->get('type');

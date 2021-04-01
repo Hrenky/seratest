@@ -8,7 +8,7 @@
         "php": "^7.3|^8.0",
         "ext-curl": "*",
         "ext-json": "*",
-        "darkaonline/l5-swagger": "^8.0",
+        "darkaonline/swagger-lume": "8.*",
         "flipbox/lumen-generator": "^8.2",
         "guzzlehttp/guzzle": "^7.3",
         "laravel/lumen-framework": "^8.0",
@@ -45,6 +45,9 @@
     "scripts": {
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-install-cmd": [
+            "cp -a vendor/swagger-api/swagger-ui/dist public/swagger-ui-assets"
         ]
     }
 }

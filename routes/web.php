@@ -25,7 +25,4 @@ $router->group(['middleware' => 'auth'], function () use ($router){
     });
 
     $router->get('logout', 'LoginController@logout');
-    $router->get('show/name', 'ShowController@showsByName');
-    $router->get('show/date', 'ShowController@showsByDate');
 });
-

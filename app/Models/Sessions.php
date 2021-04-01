@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+/**
+ * Class Sessions
+ * @package App\Models
+ */
 class Sessions extends BaseModel
 {
     protected $primaryKey = 'sessionID';

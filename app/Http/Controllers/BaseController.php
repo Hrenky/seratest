@@ -5,6 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Users;
 use Laravel\Lumen\Routing\Controller as MainController;
 
+/**
+ * @OA\Info(
+ *     title="Seratest app for getting movies",
+ *     version="1.0.0",
+ *     @OA\Contact(
+ *          email="ivan.hrenovac@gmail.com",
+ *          name="Ivan hrenovac"
+ *     )
+ * )
+ */
 class BaseController extends MainController
 {
     /* @var Users $user */

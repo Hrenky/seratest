@@ -12,7 +12,27 @@ class LoginController extends BaseController
     public function __construct(){}
 
     /**
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View|\Laravel\Lumen\Application|\Laravel\Lumen\Http\Redirector
+     * @OA\Get (
+     *     path="/",
+     *     summary="Login screen",
+     *     description="Login screen",
+     *     @OA\Response (
+     *          response=200,
+     *          description="Show screen for loging in",
+     *          @OA\JsonContent(
+     *                  @OA\Property(property="message", type="string", example="Login screen opened")
+     *              )
+     *          )
+     *     )
+     *     @OA\Response (
+     *          response=302,
+     *          description="If already logged in, redirect to shows",
+     *          @OA\JsonContent(
+     *                  @OA\Property(property="message", type="string", example="Redirecting ")
+     *              )
+     *          )
+     *     )
+     * )
      */
     public function loginScreen() {
         if(auth()->check()){
@@ -23,7 +43,28 @@ class LoginController extends BaseController
     }
 
     /**
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View|\Laravel\Lumen\Application|\Laravel\Lumen\Http\Redirector
+     * @OA\Post (
+     *     path="/",
+     *     summary="Login screen",
+     *     description="Login screen",
+     *     @OA\RequestBody (
+     *          required=true,
+     *          description="Deliver user information",
+     *          @OA\JsonContent (
+     *              required={"username", "password"},
+     *              @OA\Property(property="username", type="string", example="Test"),
+     *              @OA\Property(property="password", type="string", format="password", example="PassWord12345")
+     *          )
+     *     ),
+     *     @OA\Response (
+     *          response=302,
+     *          description="If credentials are good, redirect to show page",
+     *          @OA\JsonContent(
+     *                  @OA\Property(property="message", type="string", example="Redirecting to show")
+     *              )
+     *          )
+     *     )
+     * )
      */
     public function login(){
         $credentials = request(['username', 'password']);
@@ -59,6 +100,21 @@ class LoginController extends BaseController
         return redirect()->to('show');
     }
 
+    /**
+     * @OA\Get (
+     *     path="/logout",
+     *     summary="Logout function",
+     *     description="Logout function",
+     *     @OA\Response (
+     *          response=302,
+     *          description="Logs you out if logged in",
+     *          @OA\JsonContent(
+     *                  @OA\Property(property="message", type="string", example="Redirecting to login screen")
+     *              )
+     *          )
+     *     )
+     * )
+     */
     public function logout(){
         $token = request()->bearerToken();
 

@@ -7,6 +7,29 @@ use Illuminate\Http\Request;
 
 class AccountController extends BaseController
 {
+    /**
+     * @OA\Post (
+     *     path="/register",
+     *     summary="Register a new user",
+     *     @OA\RequestBody (
+     *          required=true,
+     *          description="Deliver user information",
+     *          @OA\JsonContent (
+     *              required={"username", "password"},
+     *              @OA\Property(property="username", type="string", example="Test"),
+     *              @OA\Property(property="password", type="string", format="password", example="PassWord12345")
+     *          )
+     *     ),
+     *     @OA\Response (
+     *          response=422,
+     *          description="Missing credentials",
+     *          @OA\JsonContent(
+     *                  @OA\Property(property="message", type="string", example="Missing username/password")
+     *              )
+     *          )
+     *     )
+     * )
+     */
     public function register(Request $request){
         $this->validate($request, [
             'username' => ['required', 'unique:users,username', 'max:100'],

@@ -7,7 +7,7 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <title>Test</title>
+    <title>Seratest</title>
 </head>
 <body class="d-flex flex-column">
     <div id="header" class="position-fixed w-100">
